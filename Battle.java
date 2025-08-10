@@ -21,10 +21,10 @@ public class Battle {
   // variables
   private static boolean isPlayerTurn = true;
   private static boolean gameOver = false;
-  private static int warTypes = 3; // the number of warrior types
-  private static int wepTypes = 3; // the number of weapon types
-  private static int armTypes = 3; // the number of armour types
-  private static int attackTypes = 2; // the number of attack types
+  private static int warTypes = 4; // the number of warrior types
+  private static int wepTypes = 4; // the number of weapon types
+  private static int armTypes = 4; // the number of armour types
+  private static int attackTypes = 3; // the number of attack types
 
   public static void main(String[] args) {
      ink.welcome();
