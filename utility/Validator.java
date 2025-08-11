@@ -25,7 +25,7 @@ public class Validator {
         }
       } // try
       catch (NumberFormatException e) { // runs only on error
-        System.out.println("That’s not a valid number. Please try again.");
+        System.out.println("That's not a valid number. Please try again.");
       } // catch
       finally { // always runs!
         // do nothing

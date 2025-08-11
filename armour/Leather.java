@@ -1,20 +1,17 @@
 package armour;
 
 public class Leather extends Armour {
-  private int armourAmount = 30;
-  private int dexCost = 5;
-  private int armourDurabilityFactor = 10;
+  private int defBonus = 2;
+  private int hpBonus = 10;
+  private int spdModifier = 1;
 
   public Leather() {
     super("Leather");
-    super.setArmourAmount(armourAmount);
-    super.setDexCost(dexCost);
+    super.setDefBonus(defBonus);
+    super.setHpBonus(hpBonus);
+    super.setSpdModifier(spdModifier);
   }
 
   // setters
-  public void setArmourReduction(int damageAmount) {
-    // 10 damage would take away 1 armour points
-    this.armourAmount -= damageAmount / armourDurabilityFactor;
-  }
 
 } // class

@@ -1,20 +1,17 @@
 package armour;
 
 public class Chainmail extends Armour {
-  private int armourAmount = 75;
-  private int dexCost = 25;
-  private int armourDurabilityFactor = 12;
+  private int defBonus = 4;
+  private int hpBonus = 15;
+  private int spdModifier = -1;
 
   public Chainmail() {
     super("Chainmail");
-    super.setArmourAmount(armourAmount);
-    super.setDexCost(dexCost);
+    super.setDefBonus(defBonus);
+    super.setHpBonus(hpBonus);
+    super.setSpdModifier(spdModifier);
   }
 
   // setters
-  public void setArmourReduction(int damageAmount) {
-    // 10 damage would take away 1 armour points
-    this.armourAmount -= damageAmount / armourDurabilityFactor;
-  }
 
 } // class

@@ -1,8 +1,8 @@
 package utility;
 
-import warrior.Warrior;
 import weapon.*;
 import armour.*;
+import race.Race;
 
 public class Ink {
   // ANSI escape codes
@@ -20,16 +20,17 @@ public class Ink {
 
   public void welcome() {
     System.out.println("=================================");
-    System.out.println("== Welcome to the Warsim 2025! ==");
+    System.out.println("== Welcome to the Battlegrounds ==");
     System.out.println("=================================");
   } // welcome()
 
-  public void warriorMenu() {
+  public void raceMenu() {
     System.out.println("\n===============================");
-    System.out.println("== Select your warrior...");
+    System.out.println("== Select your race...");
     System.out.println("== 1) Human");
     System.out.println("== 2) Elf");
     System.out.println("== 3) Orc");
+    System.out.println("== 4) Dwarf");
     System.out.println("===============================\n");
   } // warriorMenu()
 
@@ -39,37 +40,40 @@ public class Ink {
     System.out.println("== 1) Dagger");
     System.out.println("== 2) Sword");
     System.out.println("== 3) Axe");
+    System.out.println("== 4) Warhammer");
     System.out.println("===============================\n");
   } // weaponMenu()
 
   public void armourMenu() {
     System.out.println("\n===============================");
     System.out.println("== Select your armour...");
-    System.out.println("== 1) Leather");
-    System.out.println("== 2) Chainmail");
-    System.out.println("== 3) Platemail");
+    System.out.println("== 1) Robe");
+    System.out.println("== 2) Leather");
+    System.out.println("== 3) Chainmail");
+    System.out.println("== 4) Platemail");
     System.out.println("===============================\n");
   } // armourMenu()
 
   public void attackMenu() {
     System.out.println("\n===============================");
     System.out.println("== Choose your attack:");
-    System.out.println("== 1) Normal");
+    System.out.println("== 1) Basic Attack");
     System.out.println("== 2) Heavy");
-    // System.out.println("== 3) Ability");
+    System.out.println("== 3) Special Ability");
+    System.out.println("== 4) Defend");
     System.out.println("===============================\n");
   } // attackMenu()
 
-  public void printTurnResults(String attacker, int damage, String defender, Warrior warrior) {
+  public void printTurnResults(String attacker, int damage, String defender, Race warrior) {
     System.out.printf("%s hits for %d points, %s has %d health remaining...%n",
-      attacker, damage, defender, warrior.getHealth());
+      attacker, damage, defender, warrior.getHp());
   }
 
-  public void attackResult(int damage, Warrior warrior, String who) {
+  public void attackResult(int damage, Race warrior, String who) {
     if(damage > 0) {
       System.out.printf(GREEN + "%n%s %s HITS for %d points!%n", who, warrior.getType(), damage);
       System.out.printf("%d health points removed!%n", damage);
-      System.out.printf("%d health points remain!%n" + RESET, warrior.getHealth());
+      System.out.printf("%d health points remain!%n" + RESET, warrior.getHp());
       System.out.println();
     }
     else {
@@ -78,21 +82,37 @@ public class Ink {
     }
   } // attackResult()
 
-  public void printWarriorStats(Warrior player, Weapon pWeapon, Armour pArmour,
-    Warrior enemy, Weapon eWeapon, Armour eArmour) {
+  public void battleResult(int dmg, String attacker, Race aRace, Race dRace, String defender, boolean hit) {
+    if (hit) {
+      System.out.printf(GREEN + "%s %s HITS %s %S for %d damage.%n", attacker, aRace.getType(), defender, dRace.getType(), dmg);
+      System.out.printf("%d health points removed!%n", dmg);
+      System.out.printf("%d health points remaining!%n" + RESET, defender, dRace.getHp());
+      System.out.println();
+    }
+    else {
+      System.out.printf(RED + "%n%s %s MISSES!%n" + RESET, attacker, aRace.getType());
+    }
+  } //battleResult
+
+
+  public void printWarriorStats(Race player, Weapon pWeapon, Armour pArmour,
+    Race enemy, Weapon eWeapon, Armour eArmour) {
     System.out.println("\n====================================");
     System.out.printf("Player(%s) STATS:%n", player.getType());
     System.out.printf("== Weapon(%s) Armour(%s)%n", pWeapon.getType(), pArmour.getType());
-    System.out.printf("== Health      %12d%n", player.getHealth());
-    System.out.printf("== Strength    %12d%n", player.getStrength());
-    System.out.printf("== Dexterity   %12d%n", player.getDexterity());
+    System.out.printf("== Hp      %12d%n",player.getHp() + pArmour.getHpBonus());
+    System.out.printf("== Atk    %12d%n", player.getAtk() + pWeapon.getAtkBonus());
+    System.out.printf("== Def   %12d%n", player.getDef() + pArmour.getDefBonus());
+    System.out.printf("== Spd   %12d%n", player.getSpd() + pWeapon.getSpdModifier() + pArmour.getSpdModifier());
     System.out.println("====================================");
+    
     System.out.println("====================================");
     System.out.printf("Enemy(%s) STATS:%n", enemy.getType());
     System.out.printf("== Weapon(%s) Armour(%s)%n", eWeapon.getType(), eArmour.getType());
-    System.out.printf("== Health      %12d%n", enemy.getHealth());
-    System.out.printf("== Strength    %12d%n", enemy.getStrength());
-    System.out.printf("== Dexterity   %12d%n", enemy.getDexterity());
+    System.out.printf("== Hp      %12d%n", enemy.getHp() + eArmour.getHpBonus());
+    System.out.printf("== Atk    %12d%n", enemy.getAtk() + eWeapon.getAtkBonus());
+    System.out.printf("== Def   %12d%n", enemy.getDef() + eArmour.getDefBonus());
+    System.out.printf("== Spd   %12d%n", enemy.getSpd() + eWeapon.getSpdModifier() + eArmour.getSpdModifier());
     System.out.println("====================================\n");
   } // printWarriorStats()
    
