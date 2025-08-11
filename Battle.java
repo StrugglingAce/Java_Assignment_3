@@ -39,6 +39,7 @@ public class Battle {
 
   public static void main(String[] args) {
     ink.welcome();
+    ink.intro();
     gameSetup();
 
     //================================>>
@@ -58,12 +59,14 @@ public class Battle {
           }
           else {
             System.out.printf("Heavy attack is on cooldown for %d more turns", playerHeavyCooldown);
-            ink.attackMenu();
+            System.out.println("Player uses basic attack instead");
+            pAttackDmg = attack(player.getAtk(), enemy.getDef(), pWeapon.getAtkBonus(), eArmour.getDefBonus(), player.getSpd(), enemy.getSpd());
           }
           break;
         case 3:
           System.out.println("Player is defending this turn.");
           pDefend = true;
+          pAttackDmg = 0;
           break;
         case 4:
           if (playerSpecialAbility == 0) {
@@ -74,6 +77,9 @@ public class Battle {
           }
           else {
             System.out.println("Special ability already used.");
+            System.out.println("Player uses basic attack instead");
+            pAttackDmg = attack(player.getAtk(), enemy.getDef(), pWeapon.getAtkBonus(), eArmour.getDefBonus(), player.getSpd(), enemy.getSpd());
+
             ink.attackMenu();;
           }
           break;
@@ -126,6 +132,8 @@ public class Battle {
             break;
           }
           else {
+            System.out.println("Special ability already used.");
+            System.out.println("Enemy uses basic attack instead");
             eAttackDmg = attack(enemy.getAtk(), player.getDef(), eWeapon.getAtkBonus(), pArmour.getDefBonus(), enemy.getSpd(), player.getSpd());
             break;
           }
@@ -155,6 +163,18 @@ public class Battle {
       if (player.getHp() <= 0 || enemy.getHp() <= 0) {
         gameOver = true;
       }
+
+      if (player.getHp() > enemy.getHp()) {
+        System.out.println("Player wins");
+      }
+      else {
+        System.out.println("Enemy wins");
+      }
+
+      System.err.println("Restart?");
+      
+
+
 
       if (playerHeavyCooldown > 0) {
         playerHeavyCooldown--;
